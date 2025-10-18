@@ -1,12 +1,10 @@
 {
-  "version": 3,
+  "version": 2,
   "builds": [
     {
       "src": "app/main.py",
       "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
+      "config": { "maxLambdaSize": "50mb" }
     },
     {
       "src": "static/**/*",
