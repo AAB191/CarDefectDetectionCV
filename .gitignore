@@ -1,11 +1,8 @@
 __pycache__/
-.venv/
-.env
 *.pyc
-.DS_Store
-.pytest_cache/
-dist/
-build/
-.cursor/
-.agent-tools/
+*.pyo
+*.pyd
+static/annotated_*
+venv/
+.venv/
 
