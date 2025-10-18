@@ -1,0 +1,5 @@
+/* Minimal shared styles; most pages use inline styles for portability */
+html, body { background: #fafbff; color: #111; }
+a { color: #0b63f6; }
+::file-selector-button { padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; }
+
