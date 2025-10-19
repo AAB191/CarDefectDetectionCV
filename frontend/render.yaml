@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: car-damage-frontend
+    env: static
+    plan: free
+    buildCommand: echo "Static site - no build needed"
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff

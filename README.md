@@ -1,71 +1,149 @@
-Car Damage Detection & Valuation
+# Car Damage Detection & Valuation System
 
-Overview
-- FastAPI backend with OpenCV damage detection and web scraping for market prices.
-- Minimal HTML frontend to upload images and display detection and valuation.
+A comprehensive AI-powered system for detecting car damage and providing market valuation. The system is split into separate frontend and backend components for easy deployment on Render.
 
-Quickstart
-1) Create and activate a virtual environment
+## 🚀 Quick Start
+
+This project is designed for deployment on Render with separate frontend and backend services.
+
+### Backend (FastAPI)
+- Located in `/backend` directory
+- Provides AI-powered damage detection API
+- Fetches real-time market prices
+- Calculates damage-adjusted valuations
+
+### Frontend (Static Website)
+- Located in `/frontend` directory
+- Modern, responsive web interface
+- Drag & drop image upload
+- Real-time API integration
+
+## 📁 Project Structure
+
 ```
-python -m venv .venv
-.venv\\Scripts\\activate
+├── backend/                 # FastAPI backend service
+│   ├── cv/                 # Computer vision modules
+│   ├── pricing/            # Market price fetching
+│   ├── services/           # Business logic
+│   ├── main.py            # FastAPI application
+│   ├── requirements.txt   # Python dependencies
+│   └── render.yaml        # Render deployment config
+├── frontend/               # Static frontend website
+│   ├── index.html         # Main application page
+│   ├── result.html        # Results template
+│   ├── styles.css         # CSS styles
+│   ├── config.js          # Configuration
+│   └── render.yaml        # Render deployment config
+└── README.md              # This file
 ```
-2) Install dependencies
-```
+
+## 🛠️ Features
+
+### AI-Powered Damage Detection
+- Detects cracks, dents, scratches, and paint damage
+- Severity classification (minor, moderate, severe)
+- Visual annotation of damage areas
+
+### Market Valuation
+- Real-time price fetching from multiple sources
+- Damage-adjusted valuation calculations
+- Comparison with similar listings
+
+### Modern UI/UX
+- Responsive design for all devices
+- Drag & drop file upload
+- Real-time form validation
+- Loading states and error handling
+
+## 🚀 Deployment on Render
+
+### 1. Deploy Backend
+
+1. Connect your GitHub repository to Render
+2. Create a new **Web Service**
+3. Configure:
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+   - **Environment**: Python 3.11
+   - **Root Directory**: `backend`
+
+### 2. Deploy Frontend
+
+1. Create a new **Static Site**
+2. Configure:
+   - **Build Command**: `echo "Static site - no build needed"`
+   - **Publish Directory**: `.` (root of frontend)
+   - **Root Directory**: `frontend`
+
+### 3. Update Configuration
+
+After both services are deployed:
+
+1. Copy your backend URL from Render dashboard
+2. Update `frontend/config.js`:
+   ```javascript
+   API_BASE_URL: 'https://your-backend-service.onrender.com'
+   ```
+3. Redeploy the frontend
+
+## 🔧 Local Development
+
+### Backend
+```bash
+cd backend
 pip install -r requirements.txt
-```
-3) Run the server
-```
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-4) Open the app
-```
-http://localhost:8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Environment
-- Copy `.env.example` to `.env` and adjust settings.
- - Optional: enable YOLO model for better accuracy
-   - Install: `pip install ultralytics`
-   - Download weights to `models/car_damage.pt` (or any YOLOv8/v5 damage model)
-   - Set env: `YOLO_MODEL_PATH=./models/car_damage.pt`
-
-Deploy
-- Heroku/Railway/Vercel via provided `Dockerfile` or Procfile (see below).
-
-Repository Structure
-```
-app/
-  main.py
-  cv/
-    __init__.py
-    damage.py
-  pricing/
-    __init__.py
-    fetch.py
-  services/
-    __init__.py
-    valuation.py
-  schemas.py
-  utils.py
-static/
-  styles.css
-templates/
-  index.html
-  result.html
-tests/
-  test_damage.py
-requirements.txt
-Dockerfile
-Procfile
-README.md
-.env.example
-.gitignore
+### Frontend
+```bash
+cd frontend
+# Serve with any static server
+python -m http.server 8001
+# or
+npx http-server -p 8001
 ```
 
-Notes
-- Scraping uses requests+BeautifulSoup first; Selenium is optional and disabled by default.
-- For marketplaces with anti-bot protection, consider manual API keys or cached sample data.
- - Detection: Uses YOLO (if weights are present) with OpenCV heuristic as fallback.
+Update `frontend/config.js` for local development:
+```javascript
+API_BASE_URL: 'http://localhost:8000'
+```
 
+## 📋 API Endpoints
 
+- `GET /` - Main application page
+- `POST /analyze` - Analyze car damage and get valuation
+- `GET /health` - Health check
+
+## 🛡️ Security Features
+
+- CORS enabled for cross-origin requests
+- File type validation
+- File size limits
+- Input sanitization
+
+## 📱 Browser Support
+
+- Chrome 60+
+- Firefox 55+
+- Safari 12+
+- Edge 79+
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test locally
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For issues and questions:
+1. Check the README files in `/backend` and `/frontend`
+2. Review Render deployment logs
+3. Open an issue on GitHub
